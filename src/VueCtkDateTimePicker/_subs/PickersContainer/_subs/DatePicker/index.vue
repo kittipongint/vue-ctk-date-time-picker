@@ -143,6 +143,7 @@
         :dark="dark"
         :mode="selectingYearMonth"
         :month="month"
+        :buddhist-era="buddhistEra"
         @input="selectYearMonth"
         @back="selectingYearMonth = null"
       />
@@ -185,7 +186,8 @@
       noShortcuts: { type: Boolean, default: null },
       firstDayOfWeek: { type: Number, default: null },
       customShortcuts: { type: Array, default: () => ([]) },
-      visible: { type: Boolean, default: null }
+      visible: { type: Boolean, default: null },
+      buddhistEra: { type: Boolean, default: false }
     },
     data () {
       return {
@@ -216,6 +218,9 @@
         return `${this.month.getFormatted()}`
       },
       year () {
+        if (this.buddhistEra) {
+          return `${(parseInt(this.month.getYear()) + 543).toString()}`
+        }
         return `${this.month.getYear()}`
       },
       weekDays () {

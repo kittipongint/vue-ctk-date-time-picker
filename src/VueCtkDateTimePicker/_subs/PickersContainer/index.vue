@@ -26,6 +26,7 @@
           :no-time="onlyDate"
           :dark="dark"
           :range="range"
+          :buddhist-era="buddhistEra"
         />
         <div class="pickers-container flex">
           <!-- NEED 'YYYY-MM-DD' format -->
@@ -52,6 +53,7 @@
             :custom-shortcuts="customShortcuts"
             :no-keyboard="noKeyboard"
             :locale="locale"
+            :buddhist-era="buddhistEra"
             @change-month="changeMonth"
             @change-year-month="changeYearMonth"
             @close="$emit('close')"
@@ -141,7 +143,8 @@
       customShortcuts: { type: Array, default: null },
       noKeyboard: { type: Boolean, default: false },
       right: { type: Boolean, default: false },
-      behaviour: { type: Object, default: () => ({}) }
+      behaviour: { type: Object, default: () => ({}) },
+      buddhistEra: { type: Boolean, default: false }
     },
     data () {
       return {

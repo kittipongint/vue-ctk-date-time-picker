@@ -37,7 +37,7 @@
         with-border
         @click="selectYear(year)"
       >
-        {{ year }}
+        {{ getYear(year) }}
       </CustomButton>
     </div>
   </div>
@@ -64,7 +64,8 @@
       dark: { type: Boolean, default: null },
       color: { type: String, default: null },
       mode: { type: String, default: null },
-      month: { type: Object, default: null }
+      month: { type: Object, default: null },
+      buddhistEra: { type: Boolean, default: false }
     },
     data () {
       return {
@@ -104,6 +105,9 @@
       },
       selectYear (year) {
         this.$emit('input', { month: this.currentMonth, year: year })
+      },
+      getYear (year) {
+        return this.buddhistEra ? year + 543 : year
       }
     }
   }

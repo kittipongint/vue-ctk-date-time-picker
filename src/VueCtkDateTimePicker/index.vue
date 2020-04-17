@@ -40,6 +40,7 @@
       :id="`${$attrs.id}-picker-container`"
       ref="agenda"
       v-model="dateTime"
+      :buddhist-era="buddhistEra"
       :visible="hasPickerOpen"
       :position="pickerPosition"
       :inline="inline"
@@ -85,6 +86,7 @@
   import PickersContainer from './_subs/PickersContainer'
 
   import props from './props'
+  import { toBuddhistYear } from './utils'
 
   const updateMomentLocale = (locale, firstDayOfWeek) => {
     moment.locale(locale)
@@ -277,6 +279,12 @@
         }
       },
       getDateFormatted () {
+        if (this.buddhistEra) {
+          const date = this.value
+            ? toBuddhistYear(moment(this.value, this.formatOutput), this.formatted)
+            : null
+          return date
+        }
         const date = this.value
           ? moment(this.value, this.formatOutput).format(this.formatted)
           : null

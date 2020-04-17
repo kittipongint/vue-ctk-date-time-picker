@@ -119,7 +119,8 @@
       timeFormat: { type: String, default: null },
       noTime: { type: Boolean, default: null },
       range: { type: Boolean, default: null },
-      dark: { type: Boolean, default: null }
+      dark: { type: Boolean, default: null },
+      buddhistEra: { type: Boolean, default: false }
     },
     computed: {
       bgStyle () {
@@ -139,6 +140,9 @@
         return date
       },
       year () {
+        if (this.buddhistEra) {
+          return `${(parseInt(this.dateTime.format('YYYY')) + 543).toString()}`
+        }
         return this.dateTime.format('YYYY')
       },
       getDateFormatted () {
