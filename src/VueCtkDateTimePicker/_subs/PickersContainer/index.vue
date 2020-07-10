@@ -306,9 +306,30 @@
           return new Month(date.month(), date.year())
         } else if (this.value) {
           return new Month(moment(this.value, 'YYYY-MM-DD').month(), moment(this.value, 'YYYY-MM-DD').year(), this.locale)
-        } else {
-          return new Month(moment().month(), moment().year(), this.locale)
+        } else if (this.maxDate && this.minDate) {
+          const momentMaxDate = moment(this.maxDate, 'YYYY-MM-DD')
+          const momentMinDate = moment(this.minDate, 'YYYY-MM-DD')
+          const now = moment()
+          if (now > momentMaxDate) {
+            return new Month(momentMaxDate.month(), momentMaxDate.year(), this.locale)
+          } else if (now < momentMinDate) {
+            return new Month(momentMinDate.month(), momentMinDate.year(), this.locale)
+          }
+        } else if (this.maxDate) {
+          const momentMaxDate = moment(this.maxDate, 'YYYY-MM-DD')
+          const now = moment()
+          if (now > momentMaxDate) {
+            return new Month(momentMaxDate.month(), momentMaxDate.year(), this.locale)
+          }
+        } else if (this.minDate) {
+          const momentMinDate = moment(this.minDate, 'YYYY-MM-DD')
+          const now = moment()
+          if (now < momentMinDate) {
+            return new Month(momentMinDate.month(), momentMinDate.year(), this.locale)
+          }
         }
+
+        return new Month(moment().month(), moment().year(), this.locale)
       },
       changeMonth (val) {
         let month = this.month.month + (val === 'prev' ? -1 : +1)
